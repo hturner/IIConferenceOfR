@@ -1,0 +1,778 @@
+---
+title: Contributing to the R Project
+author: 
+  - name: Heather Turner
+    affiliation: University of Warwick
+date: 2023-11-16
+date-format: long
+emed-resources: true
+format: 
+  warwickpres-revealjs:
+    width: 1600
+    height: 900
+---
+
+## The R Project
+
+- R originally first developed in 1992
+- R Core Team established in 1997
+- Use of R grown massively; issue of sustainability
+   - Most core developers are volunteers
+   - Many near/post retirement or in insecure positions
+- R can use your help! E.g. posts on 
+   - [Translating R Messages](https://blog.r-project.org/2022/07/25/r-can-use-your-help-translating-r-messages/)
+   - [Bug Review](https://blog.r-project.org/2019/10/09/r-can-use-your-help-reviewing-bug-reports/)
+   - [Testing R Before Release](https://blog.r-project.org/2021/04/28/r-can-use-your-help-testing-r-before-release/)
+
+# Translation {.inverse}
+
+## Localization
+
+By default, messages, warnings and errors are shown in the current locale.
+
+The language can be changed with `Sys.setLanguage`:
+
+```r
+> Sys.setLanguage("es")
+> months[1]
+Error in months[1] : objeto de tipo 'closure' no es subconjunto
+```
+
+If no translation is available, the English is shown:
+```r
+> save()
+Error in save() : 'file' must be specified
+Además: Warning message:
+In save() : nothing specified to be save()d
+```
+
+## Translation via Weblate
+
+<https://translate.rx.studio>
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screensshot of Weblate hompage, showing three translation projects with some translation coverage summary statistics including % translated and number of unfinished strings."
+knitr::include_graphics('images/weblate_rxstudio.png')
+```
+
+Register through website to start translating (real name encouraged).
+
+:::{.notes}
+
+Hosts two R Project translation projects:
+
+* The R Project for Statistical Computing: packages in base R + Windows and Mac GUIS
+* The R Project recommended packages (most R packages)
+
+Not boot, codetools or survival
+:::
+
+## The R Project for Statistical Computing
+
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the R Project for Statistical Computing project on weblate, with per package translation coverage summaries"
+knitr::include_graphics('images/weblate_packages.png')
+```
+
+- Most packages have two components for strings in R and C files 
+- base (R GUI) is for strings in the Windows GUI
+
+## Languages tab
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the language tab for the R Project for Statistical Computing project, with per language translation coverage summaries"
+knitr::include_graphics('images/weblate_languages.png')
+```
+
+- 17 languages in current release of R, e.g., Spanish (43% translated)
+- New languages, e.g., Catalan (34% translated)
+
+## Language-specific pages
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the Spanish page for the R Project for Statistical Computing project, with per package translation coverage summaries"
+knitr::include_graphics('images/weblate_spanish.png')
+```
+
+Select a component with less than 100% translation to start translating!
+
+## Component pages
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the Base C comoponent of the Spanish translations for the R Project for Statistical Computing project, with summaries including number of translated strings, number of unfinished strings and number of untranslated strings"
+knitr::include_graphics('images/weblate_baseC.png')
+```
+
+- "Unfinished" can include "fuzzy" translations (English source has changed) or marked as "needs editing" in Weblate
+
+## Translation interface
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the translation interface for translation of a specific string. Shows the english message with an empty box to type the Spanish translation"
+knitr::include_graphics('images/weblate_translation_box.png')
+```
+
+Enter the translation and "Suggest" (if unsure) or "Save and continue" (if confident).
+
+Sidebar shows alerts and any relevant terms from glossary.
+
+## Suggestions
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of a suggestion for a specific string"
+knitr::include_graphics('images/weblate_suggestion.png')
+```
+
+- "Accept" will accept suggestion, save and continue
+- "Accept and edit" accept suggestion, save and stay
+
+## Machine translation
+
+```{r, out.width = "90%"}
+#| echo: false
+#| eval: true
+#| fig-align: "center"
+#| fig-alt: "Screenshot of the translation interface for translation of a specific string. Shows the english message with an empty box to type the Spanish translation"
+knitr::include_graphics('images/weblate_automatic_suggestions.png')
+```
+
+- "Clone to translation" will copy and mark as "needs editing"
+    - Editing will uncheck the "needs editing box"
+- "Accept" will accept suggestion, save and continue
+
+## Source String information
+
+:::: {.columns}
+
+::: {.column width="30%"}
+![](images/weblate_string_src.png){fig-alt="Screenshot showing part of the sidebar of the translation interface, including a box with source string information. This includes hyperlinks to the location of the source string in the source R or C files"}
+:::
+
+::: {.column width="70%"}
+
+Source string location
+
+
+![](images/weblate_string_src_c_file.png){fig-alt="Screenshot showing a example source string location. Numbered lines of C code are shown, with one line highlighted corresponding to the line number in the hyperlink, where the source string should be located. In this case the source string is on the following line. "}
+:::
+
+::::
+
+## String approval 
+
+Dedicated reviewers (leaders of translation teams) can approve translations in Weblate
+
+- Approved translations can only be changed by reviewers
+- Helps ensure translation quality and consistency
+- Avoids spam translations
+- Only Brazilian Portuguese team using so far
+
+## Guidance
+
+<https://contributor.r-project.org/translations/> 
+
+General conventions
+
+Language-specific guidelines
+
+* Spanish: neutral version of Latin American dialect
+* Catalan: 
+    - start with automatic translation from Softcatalà 
+    - follow Softcatalà guidelines
+ 
+:::{.notes}
+skip this as not mentioned Slack yet
+Join #core-translation-ca or #core-translation-es channel on R Contributors Slack
+:::
+
+# R Bugs {.inverse}
+
+## Bugzilla
+
+Bugs and wishlist items are tracked through R's Bugzilla
+<https://bugs.r-project.org>
+
+Contributors can help by: 
+
+ - Reviewing bug reports
+ - Debugging
+ - Discussing/proposing a fix
+
+An account is required to post comments or share files
+
+- Email <bug-report-request@r-project.org> from address you want to use
+- Briefly explain why you want an account
+
+
+:::{.notes}
+ - **Reviewing bug reports**: Is this a real, current bug or can the report be closed?
+ - **Debugging**: Finding a reprex, getting to the root cause
+ - **Proposing a fix**: By comment or as a patch
+:::
+
+# Documentation {.inverse}
+
+## Browsing Bugzilla
+
+<https://bugs.r-project.org>
+
+::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+![](images/bugzilla_main_page.png){fig-alt="Screenshot of the home page for R's Bugzilla." width="80%"}
+:::
+::: {.fragment fragment-index=0}
+![](images/bugzilla_menu_browse.png){fig-alt="Screenshot of the home page for R's Bugzilla, with 'Browse' highlighted in the top menubar" width="80%"}
+:::
+:::
+    
+## {#browse data-menu-title="Bugzilla - Browse"}
+
+::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+![](images/bugzilla_select_product.png){fig-alt=""}
+:::
+::: {.fragment .current-visible fragment-index=0}
+![](images/bugzilla_select_r.png){fig-alt=""}
+:::
+:::
+
+::: {.notes}
+There are two categories to browse, we'll focus on R, which are the bugs in R itself.
+:::
+
+## {#components data-menu-title="Bugzilla - Components"}
+
+::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+![](images/bugzilla_components.png){fig-alt=""}
+:::
+::: {.fragment .current-visible fragment-index=0}
+![](images/bugzilla_components2.png){fig-alt=""}
+:::
+:::
+
+::: {.notes}
+This takes you to a list of components, which are categories of bugs that you can look at. Let's take a look at Documentation.
+:::
+
+## {#bug-list data-menu-title="Bugzilla - Bug List"}
+
+::: {.r-stack}
+::: {.fragment .fade-out fragment-index=0}
+![](images/bugzilla_documentation.png){fig-alt=""}
+:::
+::: {.fragment .current-visible fragment-index=0}
+![](images/bugzilla_documentation2.png){fig-alt=""}
+:::
+:::
+
+::: {.notes}
+This returns a list of bugs that have been categorised as documentation bugs by the bug reporter.
+
+We can browse the summaries to look for bugs that we think we might be able to help with.
+
+Let's take a look at the last one here: "Clarification needed in ?c", which refers to the help file for the `c()` function.
+:::
+
+## {#metadata data-menu-title="Bugzilla - Metadata"}
+
+![](images/bug_report_metadata.png){fig-alt=""}
+
+::: {.notes}
+The top of the bug report shows some basic metadata. 
+:::
+
+## {#comments data-menu-title="Bugzilla - Comments"}
+
+![](images/bug_report_and_comment1.png){fig-alt=""}
+
+::: {.notes}
+If we scroll down, we'll see a description of the bug by the reporter, in this case Michael Chirico.
+
+Below that, there may be one or more comments from R core developers or other contributors.
+:::
+
+## Reviewing Documentation Bug Reports
+
+Is this a valid documentation bug?
+
+ - Does the report still apply to the development version of R (R-devel)?
+     - Can search for R documentation file (`.Rd`) in GitHub mirror of R sources <https://github.com/r-devel/r-svn/>
+ - Does the bug reporter correctly understand the behaviour?
+ - Is the documentation currently wrong/unclear?
+
+Add a comment if you think the bug should be closed, with a brief explanation.
+
+If it is a bug what action should be taken?
+
+ - Propose improvements in a comment or patch
+ - Review existing patch
+  
+
+## {#patch data-menu-title="Bugzilla - Patch"}
+
+![](images/bug_report_patch.png){fig-alt=""}
+
+## {#diff data-menu-title="Bugzilla - Diff"}
+
+![](images/bug_report_diff.png){fig-alt=""}
+
+## Reviewing Documentation Patch
+
+* Text:
+   - Are changes correct?
+   - Is the updated text clearer?
+* Examples:
+   - Do they work?
+   - Are they worthwhile?
+* Formatting: is R documentation markup correct?
+
+Add comment to confirm patch is fine, or suggest improvements.
+
+## Proposing updates in a comment
+
+It can be clearer to propose specific changes, rather than describe the 
+change in words.
+
+Code can be included in comments via a markdown code chunk.
+
+For example, this `.Rd` snippet proposes documentation for the `vfont` argument of `?text` (cf. [Bug 17791](https://bugs.r-project.org/show_bug.cgi?id=17791))
+
+````
+```
+  \item{vfont}{\code{NULL} for the current font family, or a character
+    vector of length 2 for \code{\link[grDevices]{Hershey}} vector fonts.
+	The first element of the vector selects a typeface and the second element
+	selects a style.  Ignored if \code{labels} is an expression.}
+```
+````
+ 
+## Modifying/Creating a Patch
+
+Patch files are created by modifying a copy of the R source code, which is 
+version controlled with Subversion.
+
+A few options:
+
+1. Install Subversion, edit file locally, use `svn diff` to create a patch file
+    - Local settings (e.g. indentation, EOL), can create noise.
+2. Edit file in the browser on GitHub mirror <https://github.com/r-devel/r-svn/>, create patch by adding `.diff` to commit URL
+    - Not so good for modifying a patch
+3. Use the R Dev Container <https://github.com/r-devel/r-dev-env>
+
+## R Dev Container, <https://github.com/r-devel/r-dev-env>
+
+The R Dev Container is a GitHub Codespace that provides a development environment 
+- VS Code running on Linux - that can be run in the browser.
+
+::::{.columns}
+:::{.column width="100%"}
+![](images/r-dev-env.png){fig-alt="Screenshot of the r-dev-env GitHub repository" width=80%}
+:::
+::::
+
+## Start a new Codespace
+
+![](images/r-dev-env_create_codespace.png){fig-alt="" width="80%"}
+
+## {#create-workspace data-menu-title="R Dev Env - Setting up Codespace"}
+
+![](images/r-dev-env_setting_up.png){fig-alt="" width="80%"}
+
+## {#new-workspace data-menu-title="R Dev Env - New Codespace"}
+
+![](images/r-dev-env_start.png){fig-alt="" width="80%"}
+
+## Checkout a copy of the R sources
+
+![](images/r-dev-env_checkout2.png){fig-alt="" width="80%"}
+
+## {#svn-checkout-results data-menu-title="R Dev Env - SVN checkout results"}
+
+::::{.columns}
+:::{.column width="40%"}
+![](images/r-dev-env_explorer.png){fig-alt="" width="80%"}
+:::
+::::
+
+## Modifying a Patch
+
+Download the patch from Bugzilla
+
+![](images/bugzilla_patch-details.png){fig-alt="" width="80%"}
+![](images/bugzilla_download_patch.png){fig-alt="" width="80%"}
+
+## Upload patch to Codespace
+
+::::{.columns}
+:::{.column width="40%"}
+Create new patches directory
+
+![](images/r-dev-env_new_folder.png){fig-alt="" width="80%"}
+:::
+:::{.column width="60%"}
+Upload patch downloaded from Bugzilla
+
+![](images/r-dev-env_upload.png){fig-alt="" width="80%"}
+:::
+::::
+
+## Apply patch
+
+Continuing in VS Code terminal, change to directory with SVN checkout
+
+```sh
+$ cd svn
+```
+
+Apply the uploaded patch file
+
+```sh
+$ svn patch ../patches/patch-c-rd
+U         src/library/base/man/c.Rd
+>         applied hunk @@ -44,8 +44,8 @@ with offset -1
+>         applied hunk @@ -81,6 +81,12 @@ with offset -1
+```
+
+`svn patch` the line numbers in the patch are off by 1 due to changes since the 
+patch was created.
+
+## Create an updated patch
+
+The file can be opened in VS code for further editing
+
+```sh
+$ code open src/library/base/man/c.Rd
+```
+
+After making changes create a new patch, e.g.
+
+```sh
+svn diff > patches/patch-c-rd-v2
+```
+
+The file can be downloaded from the codespace to attach with a comment on Bugzilla
+
+## Updated patch
+
+```
+Index: src/library/base/man/c.Rd
+===================================================================
+--- src/library/base/man/c.Rd	(revision 85035)
++++ src/library/base/man/c.Rd	(working copy)
+@@ -43,8 +43,8 @@
+   \code{c} is sometimes used for its side effect of removing attributes
+   except names, for example to turn an \code{\link{array}} into a vector.
+   \code{as.vector} is a more intuitive way to do this, but also drops
+-  names.  Note that methods other than the default are not required
+-  to do this (and they will almost certainly preserve a class attribute).
++  names.  Note that \code{c} methods other than the default are not required
++  to strip attributes (and they will almost certainly preserve a class attribute).
+ 
+   This is a \link{primitive} function.
+ }
+@@ -66,7 +66,7 @@
+   attribute-free vectors.
+ }
+ \examples{
+-c(1,7:9)
++c(1, 7:9)
+ c(1:5, 10.5, "next")
+ 
+ ## uses with a single argument to drop attributes
+@@ -87,9 +87,8 @@
+ ## but rather
+ c(ll, d = list(1:3))  # c() combining two lists
+ 
++## descend through lists:
+ c(list(A = c(B = 1)), recursive = TRUE)
+-
+-c(options(), recursive = TRUE)
+ c(list(A = c(B = 1, C = 2), B = c(E = 7)), recursive = TRUE)
+ }
+ \keyword{manip}
+```
+
+# Code {.inverse}
+
+## Bug 17616
+
+<https://bugs.r-project.org/show_bug.cgi?id=17616>
+
+Good behaviour
+
+```r
+> lm(uptake~C(Treatment, "contr.treatment"), CO2)
+```
+```
+Call:
+lm(formula = uptake ~ C(Treatment, "contr.treatment"), data = CO2)
+
+Coefficients:
+                           (Intercept)  C(Treatment, "contr.treatment")chilled  
+                                 30.64                                   -6.86
+```
+Bad behaviour
+
+```r
+> lm(uptake~C(Treatment, contr.treatment), CO2)
+```
+```
+Call:
+lm(formula = uptake ~ C(Treatment, contr.treatment), data = CO2)
+
+Coefficients:
+                   (Intercept)  C(Treatment, contr.treatment)2  
+                         30.64                           -6.86
+```
+
+## Isolate the problem
+
+```r
+> with(CO2, C(Treatment, contr.treatment))
+```
+```
+ [1] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
+ [9] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
+[17] nonchilled nonchilled nonchilled nonchilled nonchilled chilled    chilled    chilled   
+[25] chilled    chilled    chilled    chilled    chilled    chilled    chilled    chilled   
+[33] chilled    chilled    chilled    chilled    chilled    chilled    chilled    chilled   
+[41] chilled    chilled    nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
+[49] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
+[57] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled chilled   
+[65] chilled    chilled    chilled    chilled    chilled    chilled    chilled    chilled   
+[73] chilled    chilled    chilled    chilled    chilled    chilled    chilled    chilled   
+[81] chilled    chilled    chilled    chilled   
+attr(,"contrasts")
+           2
+nonchilled 0
+chilled    1
+Levels: nonchilled chilled
+```
+
+```
+> debugonce(`C`)
+> with(CO2, C(Treatment, contr.treatment))
+```
+
+# Debugging `C`
+
+```
+debugging in: C(Treatment, contr.treatment)
+debug: {
+    if (isFALSE(as.logical(Sys.getenv("_R_OPTIONS_STRINGS_AS_FACTORS_")))) 
+        object <- as.factor(object)
+    if (!nlevels(object)) 
+        stop("object not interpretable as a factor")
+    if (!missing(contr) && is.name(Xcontr <- substitute(contr))) 
+        contr <- switch(as.character(Xcontr), poly = "contr.poly", 
+            helmert = "contr.helmert", sum = "contr.sum", treatment = "contr.treatment", 
+            SAS = "contr.SAS", contr)
+    if (missing(contr)) {
+        oc <- getOption("contrasts")
+        contr <- if (length(oc) < 2L) 
+            if (is.ordered(object)) 
+                contr.poly
+            else contr.treatment
+        else oc[1 + is.ordered(object)]
+    }
+    if (missing(how.many) && missing(...)) 
+        contrasts(object) <- contr
+    else {
+        if (is.character(contr)) 
+            contr <- get(contr, mode = "function")
+        if (is.function(contr)) 
+            contr <- contr(nlevels(object), ...)
+        contrasts(object, how.many) <- contr
+    }
+    object
+}
+Browse[2]> 
+```
+
+## Press Enter to step through line by line
+
+::: {.fragment}
+```
+Browse[2]> 
+debug: if (isFALSE(as.logical(Sys.getenv("_R_OPTIONS_STRINGS_AS_FACTORS_")))) object <- as.factor(object)
+```
+:::
+::: {.fragment}
+```
+Browse[2]> 
+debug: if (!nlevels(object)) stop("object not interpretable as a factor")
+```
+:::
+::: {.fragment}
+```
+Browse[2]> 
+debug: if (!missing(contr) && is.name(Xcontr <- substitute(contr))) contr <- switch(as.character(Xcontr), 
+    poly = "contr.poly", helmert = "contr.helmert", sum = "contr.sum", 
+    treatment = "contr.treatment", SAS = "contr.SAS", contr)
+```
+:::
+::: {.fragment}
+...
+:::
+::: {.fragment}
+```
+Browse[2]> 
+debug: contrasts(object) <- contr
+```
+:::
+
+## Test code at this point
+
+::: {.fragment}
+```
+Browse[2]> contrasts(object) <- contr
+Browse[2]> contrasts(object)
+           2
+nonchilled 0
+chilled    1
+```
+:::
+::: {.fragment}
+```
+Browse[2]> contrasts(object) <- "contr.treatment"
+Browse[2]> contrasts(object)
+           chilled
+nonchilled       0
+chilled          1
+```
+:::
+::: {.fragment}
+
+Need to debug assignment function `contrasts<-`
+
+# Debugging `contrasts<-
+
+```r
+> debugonce(`contrasts<-`)
+> 
+> with(CO2, C(Treatment, contr.treatment))
+```
+...
+```
+Browse[2]> 
+debug: if (is.function(value)) value <- value(nlevels(x))
+Browse[2]> value(nlevels(x))
+  2
+1 0
+2 1
+Browse[2]> value(levels(x))
+           chilled
+nonchilled       0
+chilled          1
+Browse[2]> 
+```
+
+## Modifying code in base R
+
+We could create our own version of `contrasts<-`, however `C` would use the 
+version from the stats package
+
+Build R lets us
+ - Modify code
+ - Run our own checks
+ - Run regression tests
+ - Create a patch
+ 
+We can use the R Dev Container again! Instructions are in the README.
+
+## Building R
+
+In the terminal of the GitHub codespace, make a directory using the `BUILDDIR` 
+environment variable and switch to that directory.
+
+```sh
+$ mkdir -p $BUILDDIR
+$ cd $BUILDDIR
+```
+
+Run the configure script from the SVN checkout
+
+```sh
+"$TOP_SRCDIR/configure" --enable-R-shlib --without-recommended-packages
+```
+
+Make R
+
+```sh
+make
+```
+
+Run regression tests to check build
+
+```sh 
+make check
+```
+
+Install as the default version
+```
+sudo make install
+```
+
+## Start R
+
+![](images/r-dev-env_start_r.png){fig-alt=""}
+## {#r-devel data-menu-title="R Dev Env - R-devel"}
+
+![](images/r-dev-env_r-devel.png){fig-alt=""}
+
+## Custom build
+
+Edit files, e.g. `src/library/stats/R/contrast.R`, in the SVN checkout, e.g.
+
+```sh
+code open $TOP_SRCDIR/src/library/stats/R/contrast.R
+```
+
+Re run make
+
+```sh
+cd $BUILDDIR
+make
+make check
+```
+
+Will only re-build what is necessary!
+
+Open new R terminal to test out your changes.
+
+## Creating a patch
+
+A patch can be created with `svn diff` as before.
+
+This can be uploaded to Bugzilla with a comment giving a summary of your bug 
+analysis and the proposed fix.
+
+In some cases, some extra work may be needed:
+
+- updating corresponding the help file
+- providing some test code that may be added to the regression tests
+
+Usually best to get feedback on proposed patch first.
