@@ -19,7 +19,7 @@ format:
 - Use of R grown massively; issue of sustainability
    - Most core developers are volunteers
    - Many near/post retirement or in insecure positions
-- R can use your help! E.g. posts on 
+- R can use your help! E.g. posts on The R Blog
    - [Translating R Messages](https://blog.r-project.org/2022/07/25/r-can-use-your-help-translating-r-messages/)
    - [Bug Review](https://blog.r-project.org/2019/10/09/r-can-use-your-help-reviewing-bug-reports/)
    - [Testing R Before Release](https://blog.r-project.org/2021/04/28/r-can-use-your-help-testing-r-before-release/)
@@ -37,7 +37,7 @@ The language can be changed with `Sys.setLanguage`:
 > months[1]
 Error in months[1] : objeto de tipo 'closure' no es subconjunto
 ```
-
+:::{.fragment}
 If no translation is available, the English is shown:
 ```r
 > save()
@@ -45,10 +45,11 @@ Error in save() : 'file' must be specified
 Además: Warning message:
 In save() : nothing specified to be save()d
 ```
+:::
 
 ## Translation via Weblate
 
-<https://translate.rx.studio>
+The Weblate instance at <https://translate.rx.studio> provides a user-friendly interface for contributing translations.
 
 ```{r, out.width = "90%"}
 #| echo: false
@@ -172,7 +173,7 @@ knitr::include_graphics('images/weblate_automatic_suggestions.png')
 
 ::: {.column width="70%"}
 
-Source string location
+Source string location, e.g. `src/main/datetime.c:581`
 
 
 ![](images/weblate_string_src_c_file.png){fig-alt="Screenshot showing a example source string location. Numbered lines of C code are shown, with one line highlighted corresponding to the line number in the hyperlink, where the source string should be located. In this case the source string is on the following line. "}
@@ -325,11 +326,16 @@ Is this a valid documentation bug?
 
 Add a comment if you think the bug should be closed, with a brief explanation.
 
+:::{.fragment}
 If it is a bug what action should be taken?
 
  - Propose improvements in a comment or patch
  - Review existing patch
-  
+:::
+
+:::{.fragment}
+Note: each comment sends email to all of R Core, avoid "+1" comments!
+:::
 
 ## {#patch data-menu-title="Bugzilla - Patch"}
 
@@ -412,12 +418,12 @@ The R Dev Container is a GitHub Codespace that provides a development environmen
 ## {#svn-checkout-results data-menu-title="R Dev Env - SVN checkout results"}
 
 ::::{.columns}
-:::{.column width="40%"}
-![](images/r-dev-env_explorer.png){fig-alt="" width="80%"}
+:::{.column width="100%"}
+![](images/r-dev-env_explorer.png){fig-alt="" fig-align="center" width="40%"}
 :::
 ::::
 
-## Modifying a Patch
+## Working from an Existing Patch
 
 Download the patch from Bugzilla
 
@@ -456,7 +462,7 @@ U         src/library/base/man/c.Rd
 >         applied hunk @@ -81,6 +81,12 @@ with offset -1
 ```
 
-`svn patch` the line numbers in the patch are off by 1 due to changes since the 
+The line numbers in the patch are off by 1 due to changes since the 
 patch was created.
 
 ## Create an updated patch
@@ -515,9 +521,22 @@ Index: src/library/base/man/c.Rd
  \keyword{manip}
 ```
 
+These are the changes that were made in the end by R Core member, Sebastian Meyer ([view on GitHub mirror](https://github.com/r-devel/r-svn/commit/5654c3266d73de28bd92629afa4157490776d993)).
+
 # Code {.inverse}
 
-## Bug 17616
+## Reviewing Code Bug Reports
+
+Similar to reviewing documentation bugs, but more potential actions:
+
+ - Add a **reprex** (minimal, reproducible example) if necessary
+ - Analyse the bug
+     - Identify the root cause
+     - Identify the correct behaviour
+ 
+Bug analysis is often the most time-consuming part
+
+## Bug analysis example: bug 17616
 
 <https://bugs.r-project.org/show_bug.cgi?id=17616>
 
@@ -550,6 +569,8 @@ Coefficients:
 
 ## Isolate the problem
 
+Check if the bad behaviour comes from the `C` function
+
 ```r
 > with(CO2, C(Treatment, contr.treatment))
 ```
@@ -572,13 +593,12 @@ chilled    1
 Levels: nonchilled chilled
 ```
 
-```
+## Debugging C()
+
+```r
 > debugonce(`C`)
 > with(CO2, C(Treatment, contr.treatment))
 ```
-
-# Debugging `C`
-
 ```
 debugging in: C(Treatment, contr.treatment)
 debug: {
@@ -646,7 +666,7 @@ debug: contrasts(object) <- contr
 
 ## Test code at this point
 
-::: {.fragment}
+:::{.fragment}
 ```
 Browse[2]> contrasts(object) <- contr
 Browse[2]> contrasts(object)
@@ -655,7 +675,7 @@ nonchilled 0
 chilled    1
 ```
 :::
-::: {.fragment}
+:::{.fragment}
 ```
 Browse[2]> contrasts(object) <- "contr.treatment"
 Browse[2]> contrasts(object)
@@ -664,11 +684,14 @@ nonchilled       0
 chilled          1
 ```
 :::
-::: {.fragment}
 
-Need to debug assignment function `contrasts<-`
+<br><br>
 
-# Debugging `contrasts<-
+:::{.fragment}
+Now isolated bug to ```contrasts<-`()``
+:::
+
+## Debugging ```contrasts<-`()``
 
 ```r
 > debugonce(`contrasts<-`)
@@ -679,29 +702,52 @@ Need to debug assignment function `contrasts<-`
 ```
 Browse[2]> 
 debug: if (is.function(value)) value <- value(nlevels(x))
+```
+:::{.fragment}
+```
 Browse[2]> value(nlevels(x))
   2
 1 0
 2 1
+```
+:::
+:::{.fragment}
+```
 Browse[2]> value(levels(x))
            chilled
 nonchilled       0
 chilled          1
 Browse[2]> 
 ```
+:::
 
-## Modifying code in base R
+<br>
 
-We could create our own version of `contrasts<-`, however `C` would use the 
-version from the stats package
+:::{.fragment}
+We've found a possible root cause!
+:::
 
-Build R lets us
- - Modify code
- - Run our own checks
- - Run regression tests
+
+## Testing changes to a function
+
+One option: create our own version of ```contrasts<-`()``
+
+ - Can compare to ``stats::`contrasts<-`()``
+ - `C` would still use ``stats::`contrasts<-`()`` so can't test if it solve original problem
+
+:::{.fragment}
+Alternative: Build R from source! This let's us
+
+ - Modify code (including C code if required)
+ - Run our own test code
+ - Run R's regression tests
  - Create a patch
  
 We can use the R Dev Container again! Instructions are in the README.
+:::
+:::{.notes}
+building R also necessary for changes in C code
+:::
 
 ## Building R
 
@@ -713,45 +759,69 @@ $ mkdir -p $BUILDDIR
 $ cd $BUILDDIR
 ```
 
+:::{.fragment}
 Run the configure script from the SVN checkout
 
 ```sh
 "$TOP_SRCDIR/configure" --enable-R-shlib --without-recommended-packages
 ```
+::::
 
+:::{.fragment}
 Make R
 
 ```sh
 make
 ```
+:::
 
+:::{.fragment}
 Run regression tests to check build
 
 ```sh 
 make check
 ```
+:::
 
+:::{.fragment}
 Install as the default version
-```
+```sh
 sudo make install
 ```
+:::
+
+:::{.notes}
+--enable-R-shlib: build R as shared (dynamic library)
+:::
 
 ## Start R
 
+R can be started using the VS Code command palette, opened with Ctrl/Cmd + Alt + P
+
 ![](images/r-dev-env_start_r.png){fig-alt=""}
+
 ## {#r-devel data-menu-title="R Dev Env - R-devel"}
+
+A new R terminal is opened alongside the bash terminal.
+
+Scrolling to the top, we can confirm the development version of R is being used
 
 ![](images/r-dev-env_r-devel.png){fig-alt=""}
 
-## Custom build
+## Building customised R
 
-Edit files, e.g. `src/library/stats/R/contrast.R`, in the SVN checkout, e.g.
+Edit files in the SVN checkout to make desired changes.
+
+For example, we can edit the definition of ```contrasts<-`()``` in `src/library/stats/R/contrast.R`, 
+
+This file can be opened in VS Code using the files explorer, or from the bash terminal with
 
 ```sh
 code open $TOP_SRCDIR/src/library/stats/R/contrast.R
 ```
 
-Re run make
+:::{.fragment}
+Re-run make
 
 ```sh
 cd $BUILDDIR
@@ -760,8 +830,11 @@ make check
 ```
 
 Will only re-build what is necessary!
+:::
 
+:::{.fragment}
 Open new R terminal to test out your changes.
+:::
 
 ## Creating a patch
 
@@ -770,9 +843,42 @@ A patch can be created with `svn diff` as before.
 This can be uploaded to Bugzilla with a comment giving a summary of your bug 
 analysis and the proposed fix.
 
+:::{.fragment}
 In some cases, some extra work may be needed:
 
 - updating corresponding the help file
 - providing some test code that may be added to the regression tests
 
 Usually best to get feedback on proposed patch first.
+:::
+
+# Wrap-up {.inverse}
+
+## Support
+
+ - Official place for discussion: [R-devel mailing list](https://stat.ethz.ch/mailman/listinfo/r-devel)
+    - Check if expected behaviour is a bug
+    - See if there is support for a wishlist item
+ - Community support via [contributor.r-project.org](https://contributor.r-project.org/)
+    - R Contributor Slack
+    - R Development Guide
+    - Demos & tutorials
+    - Calendar of events, including contributor office hours
+
+## {#end data-menu-title="Let's go!"}
+
+::::{.larger250}
+:::{.center-h}
+[contributor.r-project.org](https://contributor.r-project.org/)
+:::
+::::
+
+::::{.columns}
+:::{.column width="100%"}
+```{r, fig.alt = "Cartoon of a rocket launching", out.width = "30%", echo = FALSE, fig.align="center"}
+knitr::include_graphics("images/reshot-icon-rocket-ZQTKM9NG32.svg")
+```
+:::
+::::
+
+    

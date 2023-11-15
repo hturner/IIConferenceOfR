@@ -417,7 +417,7 @@ Heather Turner
 <li>Most core developers are volunteers</li>
 <li>Many near/post retirement or in insecure positions</li>
 </ul></li>
-<li>R can use your help! E.g. posts on
+<li>R can use your help! E.g. posts on The R Blog
 <ul>
 <li><a href="https://blog.r-project.org/2022/07/25/r-can-use-your-help-translating-r-messages/">Translating R Messages</a></li>
 <li><a href="https://blog.r-project.org/2019/10/09/r-can-use-your-help-reviewing-bug-reports/">Bug Review</a></li>
@@ -437,15 +437,17 @@ Heather Turner
 <div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="sc">&gt;</span> <span class="fu">Sys.setLanguage</span>(<span class="st">"es"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="sc">&gt;</span> months[<span class="dv">1</span>]</span>
 <span id="cb1-3"><a href="#cb1-3"></a>Error <span class="cf">in</span> months[<span class="dv">1</span>] <span class="sc">:</span> objeto de tipo <span class="st">'closure'</span> no es subconjunto</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <p>If no translation is available, the English is shown:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="sc">&gt;</span> <span class="fu">save</span>()</span>
 <span id="cb2-2"><a href="#cb2-2"></a>Error <span class="cf">in</span> <span class="fu">save</span>() <span class="sc">:</span> <span class="st">'file'</span> must be specified</span>
 <span id="cb2-3"><a href="#cb2-3"></a>Además<span class="sc">:</span> Warning message<span class="sc">:</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>In <span class="fu">save</span>() <span class="sc">:</span> nothing specified to be <span class="fu">save</span>()d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="translation-via-weblate" class="slide level2">
 <h2>Translation via Weblate</h2>
-<p><a href="https://translate.rx.studio" class="uri">https://translate.rx.studio</a></p>
+<p>The Weblate instance at <a href="https://translate.rx.studio" class="uri">https://translate.rx.studio</a> provides a user-friendly interface for contributing translations.</p>
 
 <img data-src="images/weblate_rxstudio.png" style="width:90.0%" alt="Screensshot of Weblate hompage, showing three translation projects with some translation coverage summary statistics including % translated and number of unfinished strings." class="r-stretch quarto-figure-center"><p>Register through website to start translating (real name encouraged).</p>
 <aside class="notes">
@@ -526,7 +528,7 @@ Heather Turner
 <div class="column" style="width:30%;">
 <p><img data-src="images/weblate_string_src.png" alt="Screenshot showing part of the sidebar of the translation interface, including a box with source string information. This includes hyperlinks to the location of the source string in the source R or C files"></p>
 </div><div class="column" style="width:70%;">
-<p>Source string location</p>
+<p>Source string location, e.g.&nbsp;<code>src/main/datetime.c:581</code></p>
 <p><img data-src="images/weblate_string_src_c_file.png" alt="Screenshot showing a example source string location. Numbered lines of C code are shown, with one line highlighted corresponding to the line number in the hyperlink, where the source string should be located. In this case the source string is on the following line. "></p>
 </div>
 </div>
@@ -743,11 +745,16 @@ Heather Turner
 <li>Is the documentation currently wrong/unclear?</li>
 </ul>
 <p>Add a comment if you think the bug should be closed, with a brief explanation.</p>
+<div class="fragment">
 <p>If it is a bug what action should be taken?</p>
 <ul>
 <li>Propose improvements in a comment or patch</li>
 <li>Review existing patch</li>
 </ul>
+</div>
+<div class="fragment">
+<p>Note: each comment sends email to all of R Core, avoid “+1” comments!</p>
+</div>
 </section>
 <section id="patch" class="slide level2" data-menu-title="Bugzilla - Patch">
 <h2></h2>
@@ -830,13 +837,17 @@ Heather Turner
 <section id="svn-checkout-results" class="slide level2" data-menu-title="R Dev Env - SVN checkout results">
 <h2></h2>
 <div class="columns">
-<div class="column" style="width:40%;">
-<p><img data-src="images/r-dev-env_explorer.png" style="width:80.0%" alt=""></p>
+<div class="column" style="width:100%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/r-dev-env_explorer.png" style="width:40.0%" alt=""></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="modifying-a-patch" class="slide level2">
-<h2>Modifying a Patch</h2>
+<section id="working-from-an-existing-patch" class="slide level2">
+<h2>Working from an Existing Patch</h2>
 <p>Download the patch from Bugzilla</p>
 <p><img data-src="images/bugzilla_patch-details.png" style="width:80.0%" alt=""> <img data-src="images/bugzilla_download_patch.png" style="width:80.0%" alt=""></p>
 </section>
@@ -861,7 +872,7 @@ Heather Turner
 <span id="cb5-2"><a href="#cb5-2"></a><span class="ex">U</span>         src/library/base/man/c.Rd</span>
 <span id="cb5-3"><a href="#cb5-3"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-44,8</span> +44,8 @@ with offset <span class="at">-1</span></span>
 <span id="cb5-4"><a href="#cb5-4"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-81,6</span> +81,12 @@ with offset <span class="at">-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p><code>svn patch</code> the line numbers in the patch are off by 1 due to changes since the patch was created.</p>
+<p>The line numbers in the patch are off by 1 due to changes since the patch was created.</p>
 </section>
 <section id="create-an-updated-patch" class="slide level2">
 <h2>Create an updated patch</h2>
@@ -908,14 +919,28 @@ Heather Turner
  c(list(A = c(B = 1, C = 2), B = c(E = 7)), recursive = TRUE)
  }
  \keyword{manip}</code></pre>
+<p>These are the changes that were made in the end by R Core member, Sebastian Meyer (<a href="https://github.com/r-devel/r-svn/commit/5654c3266d73de28bd92629afa4157490776d993">view on GitHub mirror</a>).</p>
 </section></section>
 <section>
 <section id="code" class="title-slide slide level1 inverse center">
 <h1>Code</h1>
 
 </section>
-<section id="bug-17616" class="slide level2">
-<h2>Bug 17616</h2>
+<section id="reviewing-code-bug-reports" class="slide level2">
+<h2>Reviewing Code Bug Reports</h2>
+<p>Similar to reviewing documentation bugs, but more potential actions:</p>
+<ul>
+<li>Add a <strong>reprex</strong> (minimal, reproducible example) if necessary</li>
+<li>Analyse the bug
+<ul>
+<li>Identify the root cause</li>
+<li>Identify the correct behaviour</li>
+</ul></li>
+</ul>
+<p>Bug analysis is often the most time-consuming part</p>
+</section>
+<section id="bug-analysis-example-bug-17616" class="slide level2">
+<h2>Bug analysis example: bug 17616</h2>
 <p><a href="https://bugs.r-project.org/show_bug.cgi?id=17616" class="uri">https://bugs.r-project.org/show_bug.cgi?id=17616</a></p>
 <p>Good behaviour</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(uptake<span class="sc">~</span><span class="fu">C</span>(Treatment, <span class="st">"contr.treatment"</span>), CO2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -936,6 +961,7 @@ Coefficients:
 </section>
 <section id="isolate-the-problem" class="slide level2">
 <h2>Isolate the problem</h2>
+<p>Check if the bad behaviour comes from the <code>C</code> function</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code> [1] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
  [9] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
@@ -953,12 +979,11 @@ attr(,"contrasts")
 nonchilled 0
 chilled    1
 Levels: nonchilled chilled</code></pre>
-<pre><code>&gt; debugonce(`C`)
-&gt; with(CO2, C(Treatment, contr.treatment))</code></pre>
-</section></section>
-<section>
-<section id="debugging-c" class="title-slide slide level1 center">
-<h1>Debugging <code>C</code></h1>
+</section>
+<section id="debugging-c" class="slide level2">
+<h2>Debugging C()</h2>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">C</span><span class="st">`</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>debugging in: C(Treatment, contr.treatment)
 debug: {
     if (isFALSE(as.logical(Sys.getenv("_R_OPTIONS_STRINGS_AS_FACTORS_")))) 
@@ -1030,74 +1055,186 @@ Browse[2]&gt; contrasts(object)
 nonchilled       0
 chilled          1</code></pre>
 </div>
-<p>::: {.fragment}</p>
-<p>Need to debug assignment function <code>contrasts&lt;-</code></p>
-</section></section>
-<section>
-<section id="debugging-contrasts-" class="title-slide slide level1 center">
-<h1>Debugging `contrasts&lt;-</h1>
+<p><br><br></p>
+<div class="fragment">
+<p>Now isolated bug to `<code>contrasts&lt;-`()</code></p>
+</div>
+</section>
+<section id="debugging-contrasts-" class="slide level2">
+<h2>Debugging `<code>contrasts&lt;-`()</code></h2>
 <div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">contrasts&lt;-</span><span class="st">`</span>)</span>
 <span id="cb23-2"><a href="#cb23-2"></a><span class="sc">&gt;</span> </span>
 <span id="cb23-3"><a href="#cb23-3"></a><span class="er">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>…</p>
 <pre><code>Browse[2]&gt; 
-debug: if (is.function(value)) value &lt;- value(nlevels(x))
-Browse[2]&gt; value(nlevels(x))
+debug: if (is.function(value)) value &lt;- value(nlevels(x))</code></pre>
+<div class="fragment">
+<pre><code>Browse[2]&gt; value(nlevels(x))
   2
 1 0
-2 1
-Browse[2]&gt; value(levels(x))
+2 1</code></pre>
+</div>
+<div class="fragment">
+<pre><code>Browse[2]&gt; value(levels(x))
            chilled
 nonchilled       0
 chilled          1
 Browse[2]&gt; </code></pre>
+</div>
+<p><br></p>
+<div class="fragment">
+<p>We’ve found a possible root cause!</p>
+</div>
 </section>
-<section id="modifying-code-in-base-r" class="slide level2">
-<h2>Modifying code in base R</h2>
-<p>We could create our own version of <code>contrasts&lt;-</code>, however <code>C</code> would use the version from the stats package</p>
-<p>Build R lets us - Modify code - Run our own checks - Run regression tests - Create a patch</p>
+<section id="testing-changes-to-a-function" class="slide level2">
+<h2>Testing changes to a function</h2>
+<p>One option: create our own version of `<code>contrasts&lt;-`()</code></p>
+<ul>
+<li>Can compare to <code>stats::`contrasts&lt;-`()</code></li>
+<li><code>C</code> would still use <code>stats::`contrasts&lt;-`()</code> so can’t test if it solve original problem</li>
+</ul>
+<div class="fragment">
+<p>Alternative: Build R from source! This let’s us</p>
+<ul>
+<li>Modify code (including C code if required)</li>
+<li>Run our own test code</li>
+<li>Run R’s regression tests</li>
+<li>Create a patch</li>
+</ul>
 <p>We can use the R Dev Container again! Instructions are in the README.</p>
+</div>
+<aside class="notes">
+<p>building R also necessary for changes in C code</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="building-r" class="slide level2">
 <h2>Building R</h2>
 <p>In the terminal of the GitHub codespace, make a directory using the <code>BUILDDIR</code> environment variable and switch to that directory.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb25-1"><a href="#cb25-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> <span class="va">$BUILDDIR</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a><span class="ex">$</span> cd <span class="va">$BUILDDIR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> <span class="va">$BUILDDIR</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="ex">$</span> cd <span class="va">$BUILDDIR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
 <p>Run the configure script from the SVN checkout</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb26-1"><a href="#cb26-1"></a><span class="st">"</span><span class="va">$TOP_SRCDIR</span><span class="st">/configure"</span> <span class="at">--enable-R-shlib</span> <span class="at">--without-recommended-packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="st">"</span><span class="va">$TOP_SRCDIR</span><span class="st">/configure"</span> <span class="at">--enable-R-shlib</span> <span class="at">--without-recommended-packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
 <p>Make R</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">make</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">make</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
 <p>Run regression tests to check build</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
 <p>Install as the default version</p>
-<pre><code>sudo make install</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">sudo</span> make install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<aside class="notes">
+<p>–enable-R-shlib: build R as shared (dynamic library)</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="start-r" class="slide level2">
 <h2>Start R</h2>
-<p><img data-src="images/r-dev-env_start_r.png" alt=""> ## {#r-devel data-menu-title=“R Dev Env - R-devel”}</p>
-<p><img data-src="images/r-dev-env_r-devel.png" alt=""></p>
-</section>
-<section id="custom-build" class="slide level2">
-<h2>Custom build</h2>
-<p>Edit files, e.g.&nbsp;<code>src/library/stats/R/contrast.R</code>, in the SVN checkout, e.g.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1"></a><span class="ex">code</span> open <span class="va">$TOP_SRCDIR</span>/src/library/stats/R/contrast.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Re run make</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1"></a><span class="bu">cd</span> <span class="va">$BUILDDIR</span></span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="fu">make</span></span>
-<span id="cb31-3"><a href="#cb31-3"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>R can be started using the VS Code command palette, opened with Ctrl/Cmd + Alt + P</p>
+
+<img data-src="images/r-dev-env_start_r.png" alt="" class="r-stretch"></section>
+<section id="r-devel" class="slide level2" data-menu-title="R Dev Env - R-devel">
+<h2></h2>
+<p>A new R terminal is opened alongside the bash terminal.</p>
+<p>Scrolling to the top, we can confirm the development version of R is being used</p>
+
+<img data-src="images/r-dev-env_r-devel.png" alt="" class="r-stretch"></section>
+<section id="building-customised-r" class="slide level2">
+<h2>Building customised R</h2>
+<p>Edit files in the SVN checkout to make desired changes.</p>
+<p>For example, we can edit the definition of <code>contrasts&lt;-`()</code> in <code>src/library/stats/R/contrast.R</code>,</p>
+<p>This file can be opened in VS Code using the files explorer, or from the bash terminal with</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1"></a><span class="ex">code</span> open <span class="va">$TOP_SRCDIR</span>/src/library/stats/R/contrast.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<p>Re-run make</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1"></a><span class="bu">cd</span> <span class="va">$BUILDDIR</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a><span class="fu">make</span></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Will only re-build what is necessary!</p>
+</div>
+<div class="fragment">
 <p>Open new R terminal to test out your changes.</p>
+</div>
 </section>
 <section id="creating-a-patch" class="slide level2">
 <h2>Creating a patch</h2>
 <p>A patch can be created with <code>svn diff</code> as before.</p>
 <p>This can be uploaded to Bugzilla with a comment giving a summary of your bug analysis and the proposed fix.</p>
+<div class="fragment">
 <p>In some cases, some extra work may be needed:</p>
 <ul>
 <li>updating corresponding the help file</li>
 <li>providing some test code that may be added to the regression tests</li>
 </ul>
 <p>Usually best to get feedback on proposed patch first.</p>
+</div>
+</section></section>
+<section>
+<section id="wrap-up" class="title-slide slide level1 inverse center">
+<h1>Wrap-up</h1>
+
+</section>
+<section id="support" class="slide level2">
+<h2>Support</h2>
+<ul>
+<li>Official place for discussion: <a href="https://stat.ethz.ch/mailman/listinfo/r-devel">R-devel mailing list</a>
+<ul>
+<li>Check if expected behaviour is a bug</li>
+<li>See if there is support for a wishlist item</li>
+</ul></li>
+<li>Community support via <a href="https://contributor.r-project.org/">contributor.r-project.org</a>
+<ul>
+<li>R Contributor Slack</li>
+<li>R Development Guide</li>
+<li>Demos &amp; tutorials</li>
+<li>Calendar of events, including contributor office hours</li>
+</ul></li>
+</ul>
+</section>
+<section id="end" class="slide level2" data-menu-title="Let's go!">
+<h2></h2>
+<div class="larger250">
+<div class="center-h">
+<p><a href="https://contributor.r-project.org/">contributor.r-project.org</a></p>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:100%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/reshot-icon-rocket-ZQTKM9NG32.svg" style="width:30.0%" alt="Cartoon of a rocket launching"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="footer footer-default">
 
 </div>
