@@ -320,7 +320,8 @@ Below that, there may be one or more comments from R core developers or other co
 Is this a valid documentation bug?
 
  - Does the report still apply to the development version of R (R-devel)?
-     - Can search for R documentation file (`.Rd`) in GitHub mirror of R sources <https://github.com/r-devel/r-svn/>
+     - R is version-controlled in a Subversion (SVN) repository: <https://svn.r-project.org/R/>
+     - Can search for R documentation file (`.Rd`) in GitHub mirror of SVN repo <https://github.com/r-devel/r-svn/>
  - Does the bug reporter correctly understand the behaviour?
  - Is the documentation currently wrong/unclear?
 
@@ -336,6 +337,35 @@ If it is a bug what action should be taken?
 :::{.fragment}
 Note: each comment sends email to all of R Core, avoid "+1" comments!
 :::
+
+:::{.notes}
+A patch is a file that sows differences from oe version of a file and another
+:::
+
+## {#r-core-feedback data-menu-title="Bugzilla - R Core feedback"}
+
+![](images/bug_report_R_Core_feedback.png){fig-alt=""}
+
+- "Rd syntax" is defined in [Writing R Extensions](https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Writing-R-documentation-files)
+- The Rd file can found in the trunk of the R SVN repository: <https://svn.r-project.org/R/trunk/src/library/base/man/c.Rd>
+
+## Proposing updates in a comment
+
+It can be clearer to propose specific changes, rather than describe the 
+change in words.
+
+Code can be included in comments via a markdown code chunk.
+
+For example, this `.Rd` snippet proposes documentation for the `vfont` argument of `?text` (cf. [Bug 17791](https://bugs.r-project.org/show_bug.cgi?id=17791))
+
+````
+```
+  \item{vfont}{\code{NULL} for the current font family, or a character
+    vector of length 2 for \code{\link[grDevices]{Hershey}} vector fonts.
+	The first element of the vector selects a typeface and the second element
+	selects a style.  Ignored if \code{labels} is an expression.}
+```
+````
 
 ## {#patch data-menu-title="Bugzilla - Patch"}
 
@@ -727,6 +757,10 @@ Browse[2]>
 We've found a possible root cause!
 :::
 
+:::{.notes}
+?contr.treatment says first argument can be number of levels or vector of levels
+:::
+
 
 ## Testing changes to a function
 
@@ -827,6 +861,7 @@ Re-run make
 cd $BUILDDIR
 make
 make check
+sudo make install
 ```
 
 Will only re-build what is necessary!

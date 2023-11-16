@@ -739,7 +739,8 @@ Heather Turner
 <ul>
 <li>Does the report still apply to the development version of R (R-devel)?
 <ul>
-<li>Can search for R documentation file (<code>.Rd</code>) in GitHub mirror of R sources <a href="https://github.com/r-devel/r-svn/" class="uri">https://github.com/r-devel/r-svn/</a></li>
+<li>R is version-controlled in a Subversion (SVN) repository: <a href="https://svn.r-project.org/R/" class="uri">https://svn.r-project.org/R/</a></li>
+<li>Can search for R documentation file (<code>.Rd</code>) in GitHub mirror of SVN repo <a href="https://github.com/r-devel/r-svn/" class="uri">https://github.com/r-devel/r-svn/</a></li>
 </ul></li>
 <li>Does the bug reporter correctly understand the behaviour?</li>
 <li>Is the documentation currently wrong/unclear?</li>
@@ -755,6 +756,39 @@ Heather Turner
 <div class="fragment">
 <p>Note: each comment sends email to all of R Core, avoid “+1” comments!</p>
 </div>
+<aside class="notes">
+<p>A patch is a file that sows differences from oe version of a file and another</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="r-core-feedback" class="slide level2" data-menu-title="Bugzilla - R Core feedback">
+<h2></h2>
+
+<img data-src="images/bug_report_R_Core_feedback.png" alt="" class="r-stretch"><ul>
+<li>“Rd syntax” is defined in <a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Writing-R-documentation-files">Writing R Extensions</a></li>
+<li>The Rd file can found in the trunk of the R SVN repository: <a href="https://svn.r-project.org/R/trunk/src/library/base/man/c.Rd" class="uri">https://svn.r-project.org/R/trunk/src/library/base/man/c.Rd</a></li>
+</ul>
+</section>
+<section id="proposing-updates-in-a-comment" class="slide level2">
+<h2>Proposing updates in a comment</h2>
+<p>It can be clearer to propose specific changes, rather than describe the change in words.</p>
+<p>Code can be included in comments via a markdown code chunk.</p>
+<p>For example, this <code>.Rd</code> snippet proposes documentation for the <code>vfont</code> argument of <code>?text</code> (cf.&nbsp;<a href="https://bugs.r-project.org/show_bug.cgi?id=17791">Bug 17791</a>)</p>
+<pre><code>```
+  \item{vfont}{\code{NULL} for the current font family, or a character
+    vector of length 2 for \code{\link[grDevices]{Hershey}} vector fonts.
+    The first element of the vector selects a typeface and the second element
+    selects a style.  Ignored if \code{labels} is an expression.}
+```</code></pre>
 </section>
 <section id="patch" class="slide level2" data-menu-title="Bugzilla - Patch">
 <h2></h2>
@@ -781,7 +815,7 @@ Heather Turner
 </ul>
 <p>Add comment to confirm patch is fine, or suggest improvements.</p>
 </section>
-<section id="proposing-updates-in-a-comment" class="slide level2">
+<section id="proposing-updates-in-a-comment-1" class="slide level2">
 <h2>Proposing updates in a comment</h2>
 <p>It can be clearer to propose specific changes, rather than describe the change in words.</p>
 <p>Code can be included in comments via a markdown code chunk.</p>
@@ -866,20 +900,20 @@ Heather Turner
 <section id="apply-patch" class="slide level2">
 <h2>Apply patch</h2>
 <p>Continuing in VS Code terminal, change to directory with SVN checkout</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="ex">$</span> cd svn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">$</span> cd svn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Apply the uploaded patch file</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">$</span> svn patch ../patches/patch-c-rd</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="ex">U</span>         src/library/base/man/c.Rd</span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-44,8</span> +44,8 @@ with offset <span class="at">-1</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-81,6</span> +81,12 @@ with offset <span class="at">-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">$</span> svn patch ../patches/patch-c-rd</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="ex">U</span>         src/library/base/man/c.Rd</span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-44,8</span> +44,8 @@ with offset <span class="at">-1</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="op">&gt;</span>         applied <span class="ex">hunk</span> @@ <span class="at">-81,6</span> +81,12 @@ with offset <span class="at">-1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The line numbers in the patch are off by 1 due to changes since the patch was created.</p>
 </section>
 <section id="create-an-updated-patch" class="slide level2">
 <h2>Create an updated patch</h2>
 <p>The file can be opened in VS code for further editing</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="ex">$</span> code open src/library/base/man/c.Rd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="ex">$</span> code open src/library/base/man/c.Rd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>After making changes create a new patch, e.g.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">svn</span> diff <span class="op">&gt;</span> patches/patch-c-rd-v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">svn</span> diff <span class="op">&gt;</span> patches/patch-c-rd-v2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The file can be downloaded from the codespace to attach with a comment on Bugzilla</p>
 </section>
 <section id="updated-patch" class="slide level2">
@@ -943,7 +977,7 @@ Heather Turner
 <h2>Bug analysis example: bug 17616</h2>
 <p><a href="https://bugs.r-project.org/show_bug.cgi?id=17616" class="uri">https://bugs.r-project.org/show_bug.cgi?id=17616</a></p>
 <p>Good behaviour</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(uptake<span class="sc">~</span><span class="fu">C</span>(Treatment, <span class="st">"contr.treatment"</span>), CO2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(uptake<span class="sc">~</span><span class="fu">C</span>(Treatment, <span class="st">"contr.treatment"</span>), CO2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>Call:
 lm(formula = uptake ~ C(Treatment, "contr.treatment"), data = CO2)
 
@@ -951,7 +985,7 @@ Coefficients:
                            (Intercept)  C(Treatment, "contr.treatment")chilled  
                                  30.64                                   -6.86</code></pre>
 <p>Bad behaviour</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(uptake<span class="sc">~</span><span class="fu">C</span>(Treatment, contr.treatment), CO2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="sc">&gt;</span> <span class="fu">lm</span>(uptake<span class="sc">~</span><span class="fu">C</span>(Treatment, contr.treatment), CO2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>Call:
 lm(formula = uptake ~ C(Treatment, contr.treatment), data = CO2)
 
@@ -962,7 +996,7 @@ Coefficients:
 <section id="isolate-the-problem" class="slide level2">
 <h2>Isolate the problem</h2>
 <p>Check if the bad behaviour comes from the <code>C</code> function</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code> [1] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
  [9] nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled nonchilled
 [17] nonchilled nonchilled nonchilled nonchilled nonchilled chilled    chilled    chilled   
@@ -982,8 +1016,8 @@ Levels: nonchilled chilled</code></pre>
 </section>
 <section id="debugging-c" class="slide level2">
 <h2>Debugging C()</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">C</span><span class="st">`</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">C</span><span class="st">`</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="sc">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <pre><code>debugging in: C(Treatment, contr.treatment)
 debug: {
     if (isFALSE(as.logical(Sys.getenv("_R_OPTIONS_STRINGS_AS_FACTORS_")))) 
@@ -1062,9 +1096,9 @@ chilled          1</code></pre>
 </section>
 <section id="debugging-contrasts-" class="slide level2">
 <h2>Debugging `<code>contrasts&lt;-`()</code></h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">contrasts&lt;-</span><span class="st">`</span>)</span>
-<span id="cb23-2"><a href="#cb23-2"></a><span class="sc">&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3"></a><span class="er">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="sc">&gt;</span> <span class="fu">debugonce</span>(<span class="st">`</span><span class="at">contrasts&lt;-</span><span class="st">`</span>)</span>
+<span id="cb24-2"><a href="#cb24-2"></a><span class="sc">&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="er">&gt;</span> <span class="fu">with</span>(CO2, <span class="fu">C</span>(Treatment, contr.treatment))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>…</p>
 <pre><code>Browse[2]&gt; 
 debug: if (is.function(value)) value &lt;- value(nlevels(x))</code></pre>
@@ -1085,6 +1119,19 @@ Browse[2]&gt; </code></pre>
 <div class="fragment">
 <p>We’ve found a possible root cause!</p>
 </div>
+<aside class="notes">
+<p>?contr.treatment says first argument can be number of levels or vector of levels</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="testing-changes-to-a-function" class="slide level2">
 <h2>Testing changes to a function</h2>
@@ -1120,23 +1167,23 @@ Browse[2]&gt; </code></pre>
 <section id="building-r" class="slide level2">
 <h2>Building R</h2>
 <p>In the terminal of the GitHub codespace, make a directory using the <code>BUILDDIR</code> environment variable and switch to that directory.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb27-1"><a href="#cb27-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> <span class="va">$BUILDDIR</span></span>
-<span id="cb27-2"><a href="#cb27-2"></a><span class="ex">$</span> cd <span class="va">$BUILDDIR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="ex">$</span> mkdir <span class="at">-p</span> <span class="va">$BUILDDIR</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="ex">$</span> cd <span class="va">$BUILDDIR</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>Run the configure script from the SVN checkout</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb28-1"><a href="#cb28-1"></a><span class="st">"</span><span class="va">$TOP_SRCDIR</span><span class="st">/configure"</span> <span class="at">--enable-R-shlib</span> <span class="at">--without-recommended-packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="st">"</span><span class="va">$TOP_SRCDIR</span><span class="st">/configure"</span> <span class="at">--enable-R-shlib</span> <span class="at">--without-recommended-packages</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Make R</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">make</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">make</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Run regression tests to check build</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Install as the default version</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">sudo</span> make install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1"></a><span class="fu">sudo</span> make install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <aside class="notes">
 <p>–enable-R-shlib: build R as shared (dynamic library)</p>
@@ -1168,12 +1215,13 @@ Browse[2]&gt; </code></pre>
 <p>Edit files in the SVN checkout to make desired changes.</p>
 <p>For example, we can edit the definition of <code>contrasts&lt;-`()</code> in <code>src/library/stats/R/contrast.R</code>,</p>
 <p>This file can be opened in VS Code using the files explorer, or from the bash terminal with</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb32-1"><a href="#cb32-1"></a><span class="ex">code</span> open <span class="va">$TOP_SRCDIR</span>/src/library/stats/R/contrast.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1"></a><span class="ex">code</span> open <span class="va">$TOP_SRCDIR</span>/src/library/stats/R/contrast.R</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>Re-run make</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb33-1"><a href="#cb33-1"></a><span class="bu">cd</span> <span class="va">$BUILDDIR</span></span>
-<span id="cb33-2"><a href="#cb33-2"></a><span class="fu">make</span></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">make</span> check</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode numberSource sh number-lines code-with-copy"><code class="sourceCode bash"><span id="cb34-1"><a href="#cb34-1"></a><span class="bu">cd</span> <span class="va">$BUILDDIR</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a><span class="fu">make</span></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="fu">make</span> check</span>
+<span id="cb34-4"><a href="#cb34-4"></a><span class="fu">sudo</span> make install</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Will only re-build what is necessary!</p>
 </div>
 <div class="fragment">
